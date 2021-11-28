@@ -1,75 +1,75 @@
 package business_simulator;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class GameWindow extends JFrame{
-    //private GameBoard gameBoard;
-    private Business business;
+    private Business[] businesses;
 
-    private JPanel jp1, jp2, jp3, jp4;
+    private JPanel eastPanel, northPanel, southPanel;
     private JTabbedPane tabbedPane;
-    private Tab tab1, tab2;
-    private ArrayList<Tab> tabs;
+    private Tab[] tabs;
     private JLabel jl1;
     private JButton jb1, jb2;
     private Board board;
 
     GameWindow() throws IOException {
+        super();
         setTitle("Business Simulator");
         setLayout(new BorderLayout());
         setSize(800, 600);
+        //getContentPane().setBackground(Color.BLACK);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        //gameBoard = new GameBoard();
-        //add(gameBoard);
-        business = new Business(15, 15);
+        tabs = new Tab[3];
+        tabs[0] = new Tab("Burger");
+        tabs[1] = new Tab("Frytki");
+        tabs[2] = new Tab("Hot-Dog");
 
-        jp1 = new JPanel();
-        jp1.setLayout(new GridLayout(1, 1));
-        //jp1.setLayout(new FlowLayout());
-        add(jp1, BorderLayout.EAST);
+        businesses = new Business[3];
+        businesses[0] = new Business(15, 15, tabs[0]);
+        businesses[1] = new Business(15, 15, tabs[1]);
+        businesses[2] = new Business(15, 15, tabs[2]);
 
-        jp2 = new JPanel();
-        jp2.setLayout(new FlowLayout());
-        add(jp2, BorderLayout.NORTH);
+        eastPanel = new JPanel();
+        eastPanel.setLayout(new GridLayout(1, 1));
+        add(eastPanel, BorderLayout.EAST);
+
+        northPanel = new JPanel();
+        northPanel.setLayout(new FlowLayout());
+        add(northPanel, BorderLayout.NORTH);
 
         //CENTER
-        board = new Board();
+        board = new Board(businesses);
         add(board, BorderLayout.CENTER);
 
-        //jp3 = new JPanel();
-        //jp3.setLayout(new GridLayout(1, 1));
-        //add(jp3, BorderLayout.CENTER);
-
-        jp4 = new JPanel();
-        jp4.setLayout(new FlowLayout());
-        add(jp4, BorderLayout.SOUTH);
+        southPanel = new JPanel();
+        southPanel.setLayout(new GridLayout());
+        add(southPanel, BorderLayout.SOUTH);
 
         //NORTH
         jl1 = new JLabel("Business Simulator");
         jl1.setFont(new Font("Verdana", Font.PLAIN, 30));
-        jp2.add(jl1);
+        northPanel.add(jl1);
 
         //EAST
         tabbedPane = new JTabbedPane();
-        jp1.add(tabbedPane);
+        eastPanel.add(tabbedPane);
 
-        tabs = new ArrayList<Tab>();
+        for(Tab tab : tabs){
+            tabbedPane.add(tab.getTitle(), tab);
+        }
+
+        /*tabs = new ArrayList<Tab>();
         tabs.add(new Tab("Biznes 1"));
         tabs.add(new Tab("Biznes 2"));
         for(var tab : tabs){
             tabbedPane.add(tab.getTitle(), tab);
-        }
+        }*/
 
         //BufferedImage myPicture = ImageIO.read(new File("C:\\Users\\samur\\OneDrive\\Pulpit\\company.jpg"));
         //JLabel jl2 = new JLabel(new ImageIcon(myPicture));
@@ -78,22 +78,11 @@ public class GameWindow extends JFrame{
         //SOUTH
         jb1 = new JButton("Następna tura");
         jb1.addActionListener(e -> {
-            for(var tab : tabs){
-                int price = tab.getProductionPrice();
-                int production = tab.getProduction();
-                business.setProductPrice(price);
-                business.setProduction(production);
-                tab.setJl1("Cena: " + price + " ");
-                tab.setJl2("Produkcja: " + production + " ");
+            for(Business business : businesses){
+                business.update();
             }
         });
 
-        jp4.add(jb1);
-
-        //jp1.setBackground(Color.CYAN);
-
-        //add(jp1, BorderLayout.CENTER);
-        //add(jp1);
-
+        southPanel.add(jb1);
     }
 }
