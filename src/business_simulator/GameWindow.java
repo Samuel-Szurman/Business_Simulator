@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class GameWindow extends JFrame{
-    private Business[] businesses;
 
     private JPanel eastPanel, northPanel, southPanel;
     private JTabbedPane tabbedPane;
+    private TotalTab totalTab;
     private Tab[] tabs;
     private JLabel jl1;
     private JButton jb1, jb2;
@@ -25,15 +25,11 @@ public class GameWindow extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
+        totalTab = new TotalTab("Ogólne");
         tabs = new Tab[3];
         tabs[0] = new Tab("Burger");
         tabs[1] = new Tab("Frytki");
         tabs[2] = new Tab("Hot-Dog");
-
-        businesses = new Business[3];
-        businesses[0] = new Business(15, 15, tabs[0]);
-        businesses[1] = new Business(15, 15, tabs[1]);
-        businesses[2] = new Business(15, 15, tabs[2]);
 
         eastPanel = new JPanel();
         eastPanel.setLayout(new GridLayout(1, 1));
@@ -44,7 +40,7 @@ public class GameWindow extends JFrame{
         add(northPanel, BorderLayout.NORTH);
 
         //CENTER
-        board = new Board(businesses);
+        board = new Board(tabs);
         add(board, BorderLayout.CENTER);
 
         southPanel = new JPanel();
@@ -60,6 +56,7 @@ public class GameWindow extends JFrame{
         tabbedPane = new JTabbedPane();
         eastPanel.add(tabbedPane);
 
+        tabbedPane.add("Ogólne", totalTab);
         for(Tab tab : tabs){
             tabbedPane.add(tab.getTitle(), tab);
         }
@@ -78,8 +75,8 @@ public class GameWindow extends JFrame{
         //SOUTH
         jb1 = new JButton("Następna tura");
         jb1.addActionListener(e -> {
-            for(Business business : businesses){
-                business.update();
+            for(Tab tab : tabs){
+                tab.nextTurn();
             }
         });
 

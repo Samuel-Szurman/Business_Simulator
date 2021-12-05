@@ -26,10 +26,10 @@ public abstract class Option {
     public int starsCount = 0;
     private final String description;
     private final BufferedImage emptyStar, filledStar;
-    protected Business business;
+    protected Tab tab;
 
-    Option(String description, int x, int y, int width, Business business) throws IOException {
-        this.business = business;
+    Option(String description, int x, int y, int width, Tab tab) throws IOException {
+        this.tab = tab;
         this.description = description;
         this.posX = x;
         this.posY = y;
@@ -59,7 +59,7 @@ public abstract class Option {
     abstract protected void updateGame();
 
     public void draw(Graphics g){
-        g.setColor(Color.CYAN);
+        g.setColor(Color.LIGHT_GRAY);
         g.fillRoundRect(posX, posY, width, height, 10, 10);
         drawDescription(g, posX, posY, textWidth, textHeight);
         drawStars(g);

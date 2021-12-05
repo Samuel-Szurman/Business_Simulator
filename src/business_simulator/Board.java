@@ -16,7 +16,7 @@ public class Board extends JPanel{
     private Building b1, b2, b3;
     private Building[] buildings;
 
-    public Board(Business[] businesses) throws IOException {
+    public Board(Tab[] tabs) throws IOException {
         super();
         setSize(new Dimension(100, 300));
         int width = getWidth();
@@ -27,9 +27,9 @@ public class Board extends JPanel{
         hotDog = ImageIO.read(new File("resources/hot_dog.png"));
 
         buildings = new Building[3];
-        buildings[0] = new Building(burger, 10, 50, businesses[0]);
-        buildings[1] = new Building(frenchFries,200, 50, businesses[1]);
-        buildings[2] = new Building(hotDog,390, 50, businesses[2]);
+        buildings[0] = new Building(burger, 10, 100, tabs[0]);
+        buildings[1] = new Building(frenchFries,200, 100, tabs[1]);
+        buildings[2] = new Building(hotDog,390, 100, tabs[2]);
 
         emptyStar = ImageIO.read(new File("resources/empty_star.png"));
         filledStar = ImageIO.read(new File("resources/filled_star.png"));

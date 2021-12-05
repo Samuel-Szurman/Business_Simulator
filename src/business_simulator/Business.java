@@ -1,4 +1,4 @@
-package business_simulator;
+/*package business_simulator;
 
 public class Business {
     private int production;
@@ -20,12 +20,13 @@ public class Business {
     }
 
     public void update(){
-        int price = tab.getProductionPrice();
-        int production = tab.getProduction();
-        setProductPrice(price);
+        this.productPrice = tab.getProductPrice();
+        this.production = tab.getProduction();
+        setProductPrice(this.productPrice);
         setProduction(production);
-        tab.setJl1("Cena: " + price + " ");
-        tab.setJl2("Produkcja: " + production + " ");
+        tab.setJl1("Cena: " + this.productPrice + " ");
+        tab.setJl2("Produkcja: " + this.production + " ");
+        tab.setJl3("Koszt produkcji: " + this.productionPrice);
     }
 
     public void calculate(){
@@ -42,6 +43,7 @@ public class Business {
 
     public void decreaseProductionPrice(){
         this.productionPrice -= 1;
+        tab.setJl3("Koszt produkcji: " + this.productionPrice);
     }
 
     public void increaseMaxDemand(){
@@ -61,3 +63,4 @@ public class Business {
         this.productPrice = productPrice;
     }
 }
+*/

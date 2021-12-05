@@ -4,12 +4,12 @@ import java.io.IOException;
 
 public class Option3 extends Option{
 
-    Option3(String description, int x, int y, int width, Business business) throws IOException {
-        super(description, x, y, width, business);
+    Option3(String description, int x, int y, int width, Tab tab) throws IOException {
+        super(description, x, y, width, tab);
     }
 
     @Override
     protected void updateGame() {
-        this.business.increaseMaxDemand();
+        this.tab.increaseMaxDemand();
     }
 }
