@@ -34,7 +34,7 @@ public class Building{
     private String[] optionDescriptions = {"Ulepsz magazyn", "Zmniejsz koszt produkcji", "Zwiększ jakość produktu"};
     private Option[] options;
 
-    public Building(BufferedImage logo, int x, int y, Tab tab) throws IOException {
+    public Building(BufferedImage logo, int x, int y, Tab tab, GameWindow gameWindow) throws IOException {
         this.posX = x;
         this.posY = y;
         this.imageX = posX + margin;
@@ -46,9 +46,9 @@ public class Building{
         this.logo = logo;
 
         options = new Option[3];
-        options[0] = new Option1(optionDescriptions[0], optionX, optionY + 0 * lvlHeight, optionWidth, tab);
-        options[1] = new Option2(optionDescriptions[1], optionX, optionY + 1 * lvlHeight, optionWidth, tab);
-        options[2] = new Option3(optionDescriptions[2], optionX, optionY + 2 * lvlHeight, optionWidth, tab);
+        options[0] = new Option1(optionDescriptions[0], optionX, optionY + 0 * lvlHeight, optionWidth, tab, gameWindow);
+        options[1] = new Option2(optionDescriptions[1], optionX, optionY + 1 * lvlHeight, optionWidth, tab, gameWindow);
+        options[2] = new Option3(optionDescriptions[2], optionX, optionY + 2 * lvlHeight, optionWidth, tab, gameWindow);
     }
     public void draw(Graphics g){
         g.setColor(Color.GRAY);

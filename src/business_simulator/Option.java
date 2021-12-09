@@ -1,6 +1,7 @@
 package business_simulator;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -27,9 +28,11 @@ public abstract class Option {
     private final String description;
     private final BufferedImage emptyStar, filledStar;
     protected Tab tab;
+    protected GameWindow gameWindow;
 
-    Option(String description, int x, int y, int width, Tab tab) throws IOException {
+    Option(String description, int x, int y, int width, Tab tab, GameWindow gameWindow) throws IOException {
         this.tab = tab;
+        this.gameWindow = gameWindow;
         this.description = description;
         this.posX = x;
         this.posY = y;
@@ -50,8 +53,14 @@ public abstract class Option {
     public void clicked(int x, int y){
         if(x > leftBorder && x < rightBorder && y > topBorder && y < bottomBorder){
             if(starsCount < 5){
-                starsCount++;
-                updateGame();
+                if(gameWindow.money >= 500){
+                    gameWindow.money -= 500;
+                    starsCount++;
+                    updateGame();
+                }
+                else{
+                    JOptionPane.showMessageDialog(gameWindow, "Nie stać cię na zakup.");
+                }
             }
         }
     }
@@ -66,12 +75,12 @@ public abstract class Option {
     }
 
     private void drawDescription(Graphics g, int x, int y, int width, int height){
+        g.setFont(new Font("Verdana", Font.BOLD, 10));
         FontMetrics fm = g.getFontMetrics();
         int asc = fm.getAscent();
         int desc = fm.getDescent();
         int stringWidth = fm.stringWidth(description);
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Verdana", Font.BOLD, 10));
         g.drawString(description, x + (width-stringWidth)/2, y + asc + (height - (asc+desc)) / 2);
     }
 

@@ -15,7 +15,12 @@ public class GameWindow extends JFrame{
     private JButton jb1, jb2;
     private Board board;
 
-    GameWindow() throws IOException {
+    public int money = 3000;
+    public int totalIncome = 0;
+    public int turn = 1;
+    public int lastTurn = 15;
+
+    public GameWindow() throws IOException {
         super();
         setTitle("Business Simulator");
         setLayout(new BorderLayout());
@@ -25,7 +30,7 @@ public class GameWindow extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        totalTab = new TotalTab("Ogólne");
+        totalTab = new TotalTab("Ogólne", this);
         tabs = new Tab[3];
         tabs[0] = new Tab("Burger");
         tabs[1] = new Tab("Frytki");
@@ -40,7 +45,7 @@ public class GameWindow extends JFrame{
         add(northPanel, BorderLayout.NORTH);
 
         //CENTER
-        board = new Board(tabs);
+        board = new Board(tabs, this);
         add(board, BorderLayout.CENTER);
 
         southPanel = new JPanel();
@@ -56,9 +61,10 @@ public class GameWindow extends JFrame{
         tabbedPane = new JTabbedPane();
         eastPanel.add(tabbedPane);
 
-        tabbedPane.add("Ogólne", totalTab);
+        //tabbedPane.add("Ogólne", totalTab);
         for(Tab tab : tabs){
             tabbedPane.add(tab.getTitle(), tab);
+
         }
 
         /*tabs = new ArrayList<Tab>();
@@ -75,8 +81,27 @@ public class GameWindow extends JFrame{
         //SOUTH
         jb1 = new JButton("Następna tura");
         jb1.addActionListener(e -> {
-            for(Tab tab : tabs){
-                tab.nextTurn();
+            if(turn == lastTurn){
+                String[] options = {"Od nowa", "Zakończ grę"};
+                int choice = JOptionPane.showOptionDialog(this, "Koniec gry", "Koniec gry",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                if(choice == -1 || choice == 1){
+                    this.dispose();
+                }
+                if(choice == 0){
+                    //RESTART
+                }
+
+            }
+            else{
+                totalIncome = 0;
+                for(Tab tab : tabs){
+                    tab.nextTurn();
+                    totalIncome += tab.getIncome();
+                }
+                money += totalIncome;
+                board.repaint();
+                turn++;
             }
         });
 

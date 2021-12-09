@@ -34,8 +34,8 @@ public class Tab extends JPanel{
     private int maxDemand = 30;
     private int demandSlope = 1;
 
-    int maxProduction = 10;
-    int maxPrice = 30;
+    private int maxProduction = 10;
+    private int maxPrice = 30;
 
     public Tab(String title){
         super();
@@ -149,11 +149,15 @@ public class Tab extends JPanel{
         previousDemandLabel.setText("Popyt: " + demand);
     }
 
-    public void calculate(){
+    private void calculate(){
         demand = maxDemand - demandSlope * productPrice;
         revenues = Math.min(demand, production) * productPrice;
         expenses = production * productionPrice;
         income = revenues - expenses;
+    }
+
+    public int getIncome(){
+        return income;
     }
 
     public void increaseMaxProduction(){
