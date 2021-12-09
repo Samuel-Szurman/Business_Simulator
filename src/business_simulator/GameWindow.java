@@ -6,19 +6,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class GameWindow extends JFrame{
-
-    private JPanel eastPanel, northPanel, southPanel;
-    private JTabbedPane tabbedPane;
-    private TotalTab totalTab;
-    private Tab[] tabs;
-    private JLabel jl1;
-    private JButton jb1, jb2;
-    private Board board;
-
     public int money = 3000;
     public int totalIncome = 0;
     public int turn = 1;
-    public int lastTurn = 15;
+    public final int lastTurn = 15;
 
     public GameWindow() throws IOException {
         super();
@@ -29,41 +20,40 @@ public class GameWindow extends JFrame{
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
-        totalTab = new TotalTab("Ogólne", this);
-        tabs = new Tab[3];
+        
+        Tab[] tabs = new Tab[3];
         tabs[0] = new Tab("Burger");
         tabs[1] = new Tab("Frytki");
         tabs[2] = new Tab("Hot-Dog");
 
-        eastPanel = new JPanel();
+        JPanel eastPanel = new JPanel();
         eastPanel.setLayout(new GridLayout(1, 1));
         add(eastPanel, BorderLayout.EAST);
 
-        northPanel = new JPanel();
+        JPanel northPanel = new JPanel();
         northPanel.setLayout(new FlowLayout());
         add(northPanel, BorderLayout.NORTH);
 
         //CENTER
-        board = new Board(tabs, this);
+        Board board = new Board(tabs, this);
         add(board, BorderLayout.CENTER);
 
-        southPanel = new JPanel();
+        JPanel southPanel = new JPanel();
         southPanel.setLayout(new GridLayout());
         add(southPanel, BorderLayout.SOUTH);
 
         //NORTH
-        jl1 = new JLabel("Business Simulator");
-        jl1.setFont(new Font("Verdana", Font.PLAIN, 30));
-        northPanel.add(jl1);
+        JLabel titleLabel = new JLabel("Business Simulator");
+        titleLabel.setFont(new Font("Verdana", Font.PLAIN, 30));
+        northPanel.add(titleLabel);
 
         //EAST
-        tabbedPane = new JTabbedPane();
-        eastPanel.add(tabbedPane);
+        JTabbedPane productsTabbedPane = new JTabbedPane();
+        eastPanel.add(productsTabbedPane);
 
         //tabbedPane.add("Ogólne", totalTab);
         for(Tab tab : tabs){
-            tabbedPane.add(tab.getTitle(), tab);
+            productsTabbedPane.add(tab.title, tab);
 
         }
 
@@ -79,8 +69,8 @@ public class GameWindow extends JFrame{
         //add(jl2, BorderLayout.CENTER);
 
         //SOUTH
-        jb1 = new JButton("Następna tura");
-        jb1.addActionListener(e -> {
+        JButton nextTurnButton = new JButton("Następna tura");
+        nextTurnButton.addActionListener(e -> {
             if(turn == lastTurn){
                 String[] options = {"Od nowa", "Zakończ grę"};
                 int choice = JOptionPane.showOptionDialog(this, "Koniec gry", "Koniec gry",
@@ -97,7 +87,7 @@ public class GameWindow extends JFrame{
                 totalIncome = 0;
                 for(Tab tab : tabs){
                     tab.nextTurn();
-                    totalIncome += tab.getIncome();
+                    totalIncome += tab.income;
                 }
                 money += totalIncome;
                 board.repaint();
@@ -105,6 +95,6 @@ public class GameWindow extends JFrame{
             }
         });
 
-        southPanel.add(jb1);
+        southPanel.add(nextTurnButton);
     }
 }

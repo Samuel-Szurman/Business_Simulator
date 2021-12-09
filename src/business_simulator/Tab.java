@@ -5,8 +5,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class Tab extends JPanel{
-    private String title;
-    private JPanel previousInfoPanel, currentInfoPanel, sliderPanel;
+    public String title;
     private JSlider productPriceSlider, productionSlider;
 
     private JLabel previousTitleLabel;
@@ -21,15 +20,12 @@ public class Tab extends JPanel{
     private JLabel currentProductionLabel;
     private JLabel currentProductionPriceLabel;
 
-    private JLabel jl1, jl2, jl3, jl4, jl5;
-    private JLabel jl6, jl7, jl8;
-
     private int production = 5;
     private int productPrice = 15;
     private int productionPrice = 10;
     private int revenues = 0;
     private int expenses = 0;
-    private int income = 0;
+    public int income = 0;
     private int demand;
     private int maxDemand = 30;
     private int demandSlope = 1;
@@ -46,15 +42,15 @@ public class Tab extends JPanel{
         // infoPanel.setLayout(new GridLayout(2, 1));
         // add(infoPanel);
 
-        previousInfoPanel = new JPanel();
+        JPanel previousInfoPanel = new JPanel();
         previousInfoPanel.setLayout(new GridLayout(6, 1));
         add(previousInfoPanel);
 
-        currentInfoPanel = new JPanel();
+        JPanel currentInfoPanel = new JPanel();
         currentInfoPanel.setLayout(new GridLayout(6, 1));
         add(currentInfoPanel);
 
-        sliderPanel = new JPanel();
+        JPanel sliderPanel = new JPanel();
         sliderPanel.setLayout(new GridLayout(2, 1));
         add(sliderPanel);
 
@@ -102,11 +98,6 @@ public class Tab extends JPanel{
 
         currentInfoPanel.add(new JLabel(""));
 
-        createPriceSlider();
-        createProductionSlider();
-    }
-
-    public void createPriceSlider(){
         productPriceSlider = new JSlider(JSlider.HORIZONTAL, 0, maxPrice, productPrice);
         productPriceSlider.setBorder(BorderFactory.createTitledBorder("Cena produktu [zł]"));
         productPriceSlider.setMajorTickSpacing(5);
@@ -120,9 +111,7 @@ public class Tab extends JPanel{
             }
         });
         sliderPanel.add(productPriceSlider);
-    }
 
-    public void createProductionSlider(){
         productionSlider = new JSlider(JSlider.HORIZONTAL, 0, maxProduction, production);
         productionSlider.setBorder(BorderFactory.createTitledBorder("Produkcja [sztuki]"));
         productionSlider.setMajorTickSpacing(5);
@@ -156,10 +145,6 @@ public class Tab extends JPanel{
         income = revenues - expenses;
     }
 
-    public int getIncome(){
-        return income;
-    }
-
     public void increaseMaxProduction(){
         maxProduction += 5;
         productionSlider.setMaximum(maxProduction);
@@ -171,10 +156,6 @@ public class Tab extends JPanel{
 
     public int getProductPrice(){
         return productPriceSlider.getValue();
-    }
-
-    public String getTitle(){
-        return title;
     }
 
     public void decreaseProductionPrice() {

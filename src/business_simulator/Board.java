@@ -9,15 +9,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Board extends JPanel{
-    private int width;
-    private int height;
-    private BufferedImage emptyStar, filledStar;
-    private BufferedImage burger, frenchFries, hotDog;
-    private Building b1, b2, b3;
     private Building[] buildings;
-    MoneyStatus moneyStatus;
-    IncomeStatus incomeStatus;
-    TurnStatus turnStatus;
+    private MoneyStatus moneyStatus;
+    private IncomeStatus incomeStatus;
+    private TurnStatus turnStatus;
 
     public Board(Tab[] tabs, GameWindow gameWindow) throws IOException {
         super();
@@ -29,17 +24,14 @@ public class Board extends JPanel{
         incomeStatus = new IncomeStatus(200, 30, 170, 50, gameWindow);
         turnStatus = new TurnStatus(390, 30, 170, 50, gameWindow);
 
-        burger = ImageIO.read(new File("resources/burger.png"));
-        frenchFries = ImageIO.read(new File("resources/french_fries.png"));
-        hotDog = ImageIO.read(new File("resources/hot_dog.png"));
+        BufferedImage burger = ImageIO.read(new File("resources/burger.png"));
+        BufferedImage frenchFries = ImageIO.read(new File("resources/french_fries.png"));
+        BufferedImage hotDog = ImageIO.read(new File("resources/hot_dog.png"));
 
         buildings = new Building[3];
         buildings[0] = new Building(burger, 10, 100, tabs[0], gameWindow);
         buildings[1] = new Building(frenchFries,200, 100, tabs[1], gameWindow);
         buildings[2] = new Building(hotDog,390, 100, tabs[2], gameWindow);
-
-        emptyStar = ImageIO.read(new File("resources/empty_star.png"));
-        filledStar = ImageIO.read(new File("resources/filled_star.png"));
 
         addMouseListener(new MouseAdapter() {
             @Override

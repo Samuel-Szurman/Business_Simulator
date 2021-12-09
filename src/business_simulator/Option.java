@@ -8,23 +8,16 @@ import java.io.File;
 import java.io.IOException;
 
 public abstract class Option {
-    private final int topBorder;
-    private final int bottomBorder;
-    private final int leftBorder;
-    private final int rightBorder;
-
     private final int posX;
     private final int posY;
     private final int width;
     private final int height = 50;
-
-    private final int textWidth;
     private final int textHeight = 20;
 
-    private final int starsX;
-    private final int starsY;
+    private final int starsPosX;
+    private final int starsPosY;
     private final int starSize = 20;
-    public int starsCount = 0;
+    private int starsCount = 0;
     private final String description;
     private final BufferedImage emptyStar, filledStar;
     protected Tab tab;
@@ -37,21 +30,15 @@ public abstract class Option {
         this.posX = x;
         this.posY = y;
         this.width = width;
-        this.textWidth = width;
-        this.starsX = this.posX + (width - 5*starSize) / 2;
-        this.starsY = this.posY + 20;
-
-        topBorder = this.posY;
-        bottomBorder = this.posY + this.height;
-        leftBorder = this.posX;
-        rightBorder = this.posX + this.width;
+        this.starsPosX = this.posX + (width - 5*starSize) / 2;
+        this.starsPosY = this.posY + 20;
 
         emptyStar = ImageIO.read(new File("resources/empty_star.png"));
         filledStar = ImageIO.read(new File("resources/filled_star.png"));
     }
 
     public void clicked(int x, int y){
-        if(x > leftBorder && x < rightBorder && y > topBorder && y < bottomBorder){
+        if(x > posX && x < posX + width && y > posY && y < posY + height){
             if(starsCount < 5){
                 if(gameWindow.money >= 500){
                     gameWindow.money -= 500;
@@ -70,27 +57,27 @@ public abstract class Option {
     public void draw(Graphics g){
         g.setColor(Color.LIGHT_GRAY);
         g.fillRoundRect(posX, posY, width, height, 10, 10);
-        drawDescription(g, posX, posY, textWidth, textHeight);
+        drawDescription(g);
         drawStars(g);
     }
 
-    private void drawDescription(Graphics g, int x, int y, int width, int height){
+    private void drawDescription(Graphics g){
         g.setFont(new Font("Verdana", Font.BOLD, 10));
         FontMetrics fm = g.getFontMetrics();
         int asc = fm.getAscent();
         int desc = fm.getDescent();
         int stringWidth = fm.stringWidth(description);
         g.setColor(Color.BLACK);
-        g.drawString(description, x + (width-stringWidth)/2, y + asc + (height - (asc+desc)) / 2);
+        g.drawString(description, posX + (width-stringWidth)/2, posY + asc + (textHeight - (asc+desc)) / 2);
     }
 
     private void drawStars(Graphics g){
         for (int i = 0; i < 5; i++) {
             if(i < starsCount){
-                g.drawImage(filledStar, starsX+i*starSize, starsY, starSize, starSize, null);
+                g.drawImage(filledStar, starsPosX+i*starSize, starsPosY, starSize, starSize, null);
             }
             else{
-                g.drawImage(emptyStar, starsX+i*starSize, starsY, starSize, starSize, null);
+                g.drawImage(emptyStar, starsPosX+i*starSize, starsPosY, starSize, starSize, null);
             }
         }
     }
