@@ -3,11 +3,11 @@ package business_simulator;
 import java.awt.*;
 
 public class IncomeStatus {
-    GameWindow gameWindow;
-    int posX;
-    int posY;
-    int width;
-    int height;
+    private final GameWindow gameWindow;
+    private final int posX;
+    private final int posY;
+    private final int width;
+    private final int height;
 
     public IncomeStatus(int posX, int posY, int width, int height, GameWindow gameWindow){
         this.posX = posX;

@@ -9,16 +9,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class Board extends JPanel{
-    private Building[] buildings;
-    private MoneyStatus moneyStatus;
-    private IncomeStatus incomeStatus;
-    private TurnStatus turnStatus;
+    private final ProductUpgrades[] productUpgrades;
+    private final MoneyStatus moneyStatus;
+    private final IncomeStatus incomeStatus;
+    private final TurnStatus turnStatus;
 
-    public Board(Tab[] tabs, GameWindow gameWindow) throws IOException {
+    public Board(ProductTab[] productTabs, GameWindow gameWindow) throws IOException {
         super();
         setSize(new Dimension(100, 300));
-        int width = getWidth();
-        int height = getHeight();
 
         moneyStatus = new MoneyStatus(10, 30, 170, 50, gameWindow);
         incomeStatus = new IncomeStatus(200, 30, 170, 50, gameWindow);
@@ -28,10 +26,10 @@ public class Board extends JPanel{
         BufferedImage frenchFries = ImageIO.read(new File("resources/french_fries.png"));
         BufferedImage hotDog = ImageIO.read(new File("resources/hot_dog.png"));
 
-        buildings = new Building[3];
-        buildings[0] = new Building(burger, 10, 100, tabs[0], gameWindow);
-        buildings[1] = new Building(frenchFries,200, 100, tabs[1], gameWindow);
-        buildings[2] = new Building(hotDog,390, 100, tabs[2], gameWindow);
+        productUpgrades = new ProductUpgrades[3];
+        productUpgrades[0] = new ProductUpgrades(burger, 10, 100, productTabs[0], gameWindow);
+        productUpgrades[1] = new ProductUpgrades(frenchFries,200, 100, productTabs[1], gameWindow);
+        productUpgrades[2] = new ProductUpgrades(hotDog,390, 100, productTabs[2], gameWindow);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -39,8 +37,8 @@ public class Board extends JPanel{
                 super.mouseClicked(e);
                 int x = e.getX();
                 int y = e.getY();
-                for(Building building : buildings){
-                    building.clicked(x, y);
+                for(ProductUpgrades productUpgrades : Board.this.productUpgrades){
+                    productUpgrades.clicked(x, y);
                 }
                 repaint();
             }
@@ -52,8 +50,15 @@ public class Board extends JPanel{
         moneyStatus.draw(g);
         incomeStatus.draw(g);
         turnStatus.draw(g);
-        for(Building building : buildings){
-            building.draw(g);
+        for(ProductUpgrades productUpgrades : this.productUpgrades){
+            productUpgrades.draw(g);
         }
+    }
+
+    public void restart(){
+        for(ProductUpgrades productUpgrades : this.productUpgrades){
+            productUpgrades.restart();
+        }
+        repaint();
     }
 }

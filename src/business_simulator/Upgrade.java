@@ -7,12 +7,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class Option {
+public abstract class Upgrade {
     private final int posX;
     private final int posY;
     private final int width;
     private final int height = 50;
-    private final int textHeight = 20;
 
     private final int starsPosX;
     private final int starsPosY;
@@ -20,11 +19,13 @@ public abstract class Option {
     private int starsCount = 0;
     private final String description;
     private final BufferedImage emptyStar, filledStar;
-    protected Tab tab;
+    protected ProductTab productTab;
     protected GameWindow gameWindow;
 
-    Option(String description, int x, int y, int width, Tab tab, GameWindow gameWindow) throws IOException {
-        this.tab = tab;
+    private int upgradePrice = 100;
+
+    Upgrade(String description, int x, int y, int width, ProductTab productTab, GameWindow gameWindow) throws IOException {
+        this.productTab = productTab;
         this.gameWindow = gameWindow;
         this.description = description;
         this.posX = x;
@@ -40,13 +41,20 @@ public abstract class Option {
     public void clicked(int x, int y){
         if(x > posX && x < posX + width && y > posY && y < posY + height){
             if(starsCount < 5){
-                if(gameWindow.money >= 500){
-                    gameWindow.money -= 500;
-                    starsCount++;
-                    updateGame();
-                }
-                else{
-                    JOptionPane.showMessageDialog(gameWindow, "Nie stać cię na zakup.");
+                String[] options = {"Tak", "Anuluj"};
+                int choice = JOptionPane.showOptionDialog(gameWindow, "Czy chcesz kupić ulepszenie za " + upgradePrice + "?", "",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                if(choice == 0){
+                    if(gameWindow.money >= upgradePrice){
+                        gameWindow.money -= upgradePrice;
+                        upgradePrice += 100;
+                        starsCount++;
+                        updateGame();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(gameWindow, "Nie stać cię na zakup.", "",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             }
         }
@@ -68,6 +76,7 @@ public abstract class Option {
         int desc = fm.getDescent();
         int stringWidth = fm.stringWidth(description);
         g.setColor(Color.BLACK);
+        int textHeight = 20;
         g.drawString(description, posX + (width-stringWidth)/2, posY + asc + (textHeight - (asc+desc)) / 2);
     }
 
@@ -80,5 +89,9 @@ public abstract class Option {
                 g.drawImage(emptyStar, starsPosX+i*starSize, starsPosY, starSize, starSize, null);
             }
         }
+    }
+
+    public void restart(){
+        starsCount = 0;
     }
 }
