@@ -2,6 +2,9 @@ package business_simulator;
 
 import java.awt.*;
 
+/**
+ * Pokazuje, ile pieniędzy ma gracz
+ */
 public class MoneyStatus {
     private final GameWindow gameWindow;
     private final int posX;

@@ -2,11 +2,10 @@ package business_simulator;
 
 import java.awt.*;
 
+/**
+ * Pokazuje numer tury
+ */
 public class TurnStatus {
-    /**
-     *
-     *
-     */
     GameWindow gameWindow;
     int posX;
     int posY;

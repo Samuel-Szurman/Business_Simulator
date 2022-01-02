@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Przedstawia graficznie produkt oraz pokazuje dostępne inwestycje
+ */
 public class ProductUpgrades {
     private final int width = 170;
     private final int height = 350;
@@ -35,9 +38,9 @@ public class ProductUpgrades {
         //int lvlHeight = optionHeight + margin;
 
         upgrades = new Upgrade[3];
-        upgrades[0] = new Upgrade1("Ulepsz magazyn", optionX, optionY, optionWidth, productTab, gameWindow);
-        upgrades[1] = new Upgrade2("Zmniejsz koszt produkcji", optionX, optionY + 60, optionWidth, productTab, gameWindow);
-        upgrades[2] = new Upgrade3("Zwiększ jakość produktu", optionX, optionY + 120, optionWidth, productTab, gameWindow);
+        upgrades[0] = new MagazineUpgrade("Ulepsz magazyn", optionX, optionY, optionWidth, productTab, gameWindow);
+        upgrades[1] = new ProductionPriceUpgrade("Zmniejsz koszt produkcji", optionX, optionY + 60, optionWidth, productTab, gameWindow);
+        upgrades[2] = new QualityUpgrade("Zwiększ jakość produktu", optionX, optionY + 120, optionWidth, productTab, gameWindow);
     }
     public void draw(Graphics g){
         g.setColor(Color.GRAY);

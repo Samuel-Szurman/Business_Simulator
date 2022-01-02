@@ -2,6 +2,9 @@ package business_simulator;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Pokazuje informacje o produkcie oraz umożliwia ustalenie ceny i produkcji
+ */
 public class ProductTab extends JPanel{
     private final JSlider productPriceSlider, productionSlider;
 

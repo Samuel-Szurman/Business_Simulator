@@ -8,6 +8,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Na tej klasie rysowane są elementy interfejsu graficznego
+ */
 public class Board extends JPanel{
     private final ProductUpgrades[] productUpgrades;
     private final MoneyStatus moneyStatus;

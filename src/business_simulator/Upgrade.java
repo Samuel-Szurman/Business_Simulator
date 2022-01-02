@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Klasa abstrakcyjna dla ulepszeń
+ */
 public abstract class Upgrade {
     private final int posX;
     private final int posY;

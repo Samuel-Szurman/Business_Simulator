@@ -2,6 +2,9 @@ package business_simulator;
 
 import java.awt.*;
 
+/**
+ * Pokazuje dochód gracza z poprzedniej tury
+ */
 public class IncomeStatus {
     private final GameWindow gameWindow;
     private final int posX;

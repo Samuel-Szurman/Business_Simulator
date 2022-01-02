@@ -4,6 +4,9 @@ import java.awt.*;
 import java.io.IOException;
 import javax.swing.*;
 
+/**
+ * Odpowiada za całą grę
+ */
 public class GameWindow extends JFrame{
     public int money = 1000;
     public int totalIncome = 0;
