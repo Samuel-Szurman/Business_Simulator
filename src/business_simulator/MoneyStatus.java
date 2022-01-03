@@ -6,6 +6,7 @@ import java.awt.*;
  * Pokazuje, ile pieniędzy ma gracz
  */
 public class MoneyStatus {
+    /** Referencja do okna gry */
     private final GameWindow gameWindow;
     private final int posX;
     private final int posY;

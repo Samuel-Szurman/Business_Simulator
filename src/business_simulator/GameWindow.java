@@ -5,17 +5,26 @@ import java.io.IOException;
 import javax.swing.*;
 
 /**
- * Odpowiada za całą grę
+ * Okno całej gry
  */
 public class GameWindow extends JFrame{
+    /** Pieniądze gracz */
     public int money = 1000;
+    /** Przychód gracz */
     public int totalIncome = 0;
+    /** Numer bieżącej tury */
     public int turn = 1;
+    /** Numer ostatniej tury */
     public final int lastTurn = 20;
 
+    /**  Tablica zakładek produktów */
     private final ProductTab[] productTabs;
+    /** Plansza, na której rysowane są ulepszenia oraz informacje o stanie gry */
     private final Board board;
 
+    /**
+     * Metoda wywoływana podczas restartu gry
+     */
     private void restart(){
         money = 1000;
         totalIncome = 0;
@@ -26,6 +35,9 @@ public class GameWindow extends JFrame{
         }
     }
 
+    /**
+     * Metoda wyświetla nowe okienko na koniec gry
+     */
     private void showEndMessage(){
         String[] options = {"Od nowa", "Zakończ grę"};
         int choice = JOptionPane.showOptionDialog(this, "Koniec gry\nTwój wynik: " + money, "Koniec gry",
@@ -38,6 +50,10 @@ public class GameWindow extends JFrame{
         }
     }
 
+    /**
+     * Jedyny konstruktor klasy GameWindow
+     * @throws IOException Wyjątek wywoływany w przypadku problemu z wczytaniem obrazków z plików
+     */
     public GameWindow() throws IOException {
         super();
         setTitle("Business Simulator");

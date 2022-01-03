@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Przedstawia graficznie produkt oraz pokazuje dostępne inwestycje
  */
-public class ProductUpgrades {
+public class UpgradesContainer {
     private final int width = 170;
     private final int height = 350;
     private final int margin = 10;
@@ -23,7 +23,7 @@ public class ProductUpgrades {
     private final BufferedImage logo;
     private final Upgrade[] upgrades;
 
-    public ProductUpgrades(BufferedImage logo, int x, int y, ProductTab productTab, GameWindow gameWindow) throws IOException {
+    public UpgradesContainer(BufferedImage logo, int x, int y, ProductTab productTab, GameWindow gameWindow) throws IOException {
         this.posX = x;
         this.posY = y;
         this.imageX = posX + margin;
@@ -58,6 +58,9 @@ public class ProductUpgrades {
         }
     }
 
+    /**
+     * Metoda wywoływana podczas restartu gry
+     */
     public void restart(){
         for(Upgrade upgrade : upgrades){
             upgrade.restart();
