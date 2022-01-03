@@ -5,18 +5,7 @@ import java.awt.*;
 /**
  * Klasa wyświetlająca numer tury na ekranie
  */
-public class TurnStatus {
-    /** Referencja do okna gry */
-    GameWindow gameWindow;
-    /** Współrzędna x całego elementu */
-    private final int posX;
-    /** Współrzędna y całego elementu */
-    private final int posY;
-    /** Szerokość całego elementu */
-    private final int width;
-    /** Wysokość całego elementu */
-    private final int height;
-
+public class TurnStatus extends Status{
     /**
      * Jedyny konstruktor klasy TurnStatus
      * @param posX Współrzędna x całego elementu
@@ -26,28 +15,15 @@ public class TurnStatus {
      * @param gameWindow Referencja do okna gry
      */
     public TurnStatus(int posX, int posY, int width, int height, GameWindow gameWindow){
-        this.posX = posX;
-        this.posY = posY;
-        this.width = width;
-        this.height = height;
-        this.gameWindow = gameWindow;
+        super(posX, posY, width, height, gameWindow);
     }
 
     /**
-     * Metoda rysuje cały element na ekranie
-     * @param g Obiekt klasy Graphics, na którym jest rysowany element
-     */
-    public void draw(Graphics g){
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillRoundRect(posX, posY, width, height, 10, 10);
-        drawDescription(g, posX, posY, width, height);
-    }
-
-    /**
-     * Metoda wpisuje opis inwestycji na ekranie
+     * Metoda wpisuje napis wewnątrz elementu
      * @param g Obiekt klasy Graphics, na którym jest wpisywany napis
      */
-    private void drawDescription(Graphics g, int x, int y, int width, int height){
+    @Override
+    protected void drawDescription(Graphics g, int x, int y, int width, int height){
         g.setFont(new Font("Verdana", Font.BOLD, 18));
         FontMetrics fm = g.getFontMetrics();
         int asc = fm.getAscent();

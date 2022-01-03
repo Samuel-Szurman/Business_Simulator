@@ -6,38 +6,58 @@ import java.awt.*;
  * Pokazuje informacje o produkcie oraz umożliwia ustalenie ceny i produkcji
  */
 public class ProductTab extends JPanel{
-    private final JSlider productPriceSlider, productionSlider;
-
+    /** Suwak do ustalenia produkcji */
+    private final JSlider productPriceSlider;
+    /** Suwak do ustalenia ceny produktu */
+    private final JSlider productionSlider;
+    /** Etykieta informująca o cenie produktu w poprzedniej turze */
     private final JLabel previousProductPriceLabel;
+    /** Etykieta informująca o produkcji poprzedniej turze */
     private final JLabel previousProductionLabel;
+    /** Etykieta informująca o cenie produkcji pojedynczego produktu w poprzedniej turze */
     private final JLabel previousProductionPriceLabel;
+    /** Etykieta informująca o przychodzie w poprzedniej turze */
     private final JLabel previousIncomeLabel;
+    /** Etykieta informująca o popycie w poprzedniej turze */
     private final JLabel previousDemandLabel;
-
+    /** Etykieta pokazująca wybraną cenę produktu w obecnej turze */
     private final JLabel currentProductPriceLabel;
+    /** Etykieta pokazująca wybraną produkcję w obecnej turze */
     private final JLabel currentProductionLabel;
+    /** Etykieta informująca o cenie produkcji pojedynczego produktu w obecnej turze */
     private final JLabel currentProductionPriceLabel;
-
-    private final int defaultProductionPrice;
-    private final int defaultMaxDemand;
-
+    /** Początkowy koszt produkcji pojedynczego produktu */
+    private final int baseProductionPrice;
+    /** Początkowy maksymalny możliwy popyt */
+    private final int baseMaxDemand;
+    /** Ilość produktów do wyprodukowania */
     private int production = 5;
+    /** Cena pojedynczego produktu */
     private int productPrice = 30;
+    /** Koszt produkcji pojedynczego produktu */
     private int productionPrice;
-    private int revenues = 0;
-    private int expenses = 0;
+    /** Popyt */
     private int demand = 0;
+    /** Maksymalny możliwy popyt */
     private int maxDemand;
+    /** Maksymalna ilość produktów do wyprodukowania */
     private int maxProduction = 10;
-
+    /** Początkowa maksymalna ilość produktów do wyprodukowania */
+    private final int baseMaxProduction = 10;
+    /** Przychód */
     public int income = 0;
 
+    /**
+     * Jedyny konstruktor klasy ProductTab
+     * @param productionPrice Koszt produkcji pojedynczego produktu
+     * @param maxDemand Maksymalny możliwy popyt na produkt
+     */
     public ProductTab(int productionPrice, int maxDemand){
         super();
         this.productionPrice = productionPrice;
-        this.defaultProductionPrice = productionPrice;
+        this.baseProductionPrice = productionPrice;
         this.maxDemand = maxDemand;
-        this.defaultMaxDemand = maxDemand;
+        this.baseMaxDemand = maxDemand;
         setLayout(new GridLayout(3, 1));
 
         JPanel previousInfoPanel = new JPanel();
@@ -115,6 +135,9 @@ public class ProductTab extends JPanel{
         sliderPanel.add(productionSlider);
     }
 
+    /**
+     * Metoda wywoływana przy następnej turze
+     */
     public void nextTurn(){
         productPrice = getProductPrice();
         production = getProduction();
@@ -126,44 +149,65 @@ public class ProductTab extends JPanel{
         previousDemandLabel.setText("Popyt: " + demand);
     }
 
+    /**
+     * Metoda obliczająca przychód
+     */
     private void calculate(){
         demand = maxDemand - productPrice;
-        revenues = Math.min(demand, production) * productPrice;
-        expenses = production * productionPrice;
+        int revenues = Math.min(demand, production) * productPrice;
+        int expenses = production * productionPrice;
         income = revenues - expenses;
     }
 
+    /**
+     * Metoda zwiększa maksymalną produkcję
+     */
     public void increaseMaxProduction(){
         maxProduction += 5;
         productionSlider.setMaximum(maxProduction);
     }
 
+    /**
+     * Metoda zwraca wybraną przez gracza produkcję z JSlidera
+     * @return produkcja
+     */
     public int getProduction(){
         return productionSlider.getValue();
     }
 
+    /**
+     * Metoda zwraca wybraną przez gracza cenę produktu z JSlidera
+     * @return cena produktu
+     */
     public int getProductPrice(){
         return productPriceSlider.getValue();
     }
 
+    /**
+     * Metoda zmniejsza koszt produkcji
+     */
     public void decreaseProductionPrice() {
         this.productionPrice -= 1;
         currentProductionPriceLabel.setText("Koszt produkcji: " + productionPrice);
     }
 
+    /**
+     * Metoda zwiększa maksymalny możliwy popyt
+     */
     public void increaseMaxDemand() {
         this.maxDemand += 10;
     }
 
+    /**
+     * Metoda wywoływana podczas restartu gry
+     */
     public void restart(){
         production = 5;
         productPrice = 30;
-        productionPrice = defaultProductionPrice;
-        revenues = 0;
-        expenses = 0;
+        productionPrice = baseProductionPrice;
         income = 0;
-        maxDemand = defaultMaxDemand;
-        maxProduction = 10;
+        maxDemand = baseMaxDemand;
+        maxProduction = baseMaxProduction;
         productionSlider.setMaximum(maxProduction);
         productPriceSlider.setValue(productPrice);
         productionSlider.setValue(production);

@@ -5,29 +5,25 @@ import java.awt.*;
 /**
  * Pokazuje, ile pieniędzy ma gracz
  */
-public class MoneyStatus {
-    /** Referencja do okna gry */
-    private final GameWindow gameWindow;
-    private final int posX;
-    private final int posY;
-    private final int width;
-    private final int height;
-
+public class MoneyStatus extends Status{
+    /**
+     * Jedyny konstruktor klasy TurnStatus
+     * @param posX Współrzędna x całego elementu
+     * @param posY Współrzędna x całego elementu
+     * @param width Szerokość całego elementu
+     * @param height Wysokość całego elementu
+     * @param gameWindow Referencja do okna gry
+     */
     public MoneyStatus(int posX, int posY, int width, int height, GameWindow gameWindow){
-        this.posX = posX;
-        this.posY = posY;
-        this.width = width;
-        this.height = height;
-        this.gameWindow = gameWindow;
+        super(posX, posY, width, height, gameWindow);
     }
 
-    public void draw(Graphics g){
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillRoundRect(posX, posY, width, height, 10, 10);
-        drawDescription(g, posX, posY, width, height);
-    }
-
-    private void drawDescription(Graphics g, int x, int y, int width, int height){
+    /**
+     * Metoda wpisuje napis wewnątrz elementu
+     * @param g Obiekt klasy Graphics, na którym jest wpisywany napis
+     */
+    @Override
+    protected void drawDescription(Graphics g, int x, int y, int width, int height){
         g.setFont(new Font("Verdana", Font.BOLD, 18));
         FontMetrics fm = g.getFontMetrics();
         int asc = fm.getAscent();
