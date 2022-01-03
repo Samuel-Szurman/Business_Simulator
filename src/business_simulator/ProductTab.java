@@ -42,8 +42,6 @@ public class ProductTab extends JPanel{
     private int maxDemand;
     /** Maksymalna ilość produktów do wyprodukowania */
     private int maxProduction = 10;
-    /** Początkowa maksymalna ilość produktów do wyprodukowania */
-    private final int baseMaxProduction = 10;
     /** Przychód */
     public int income = 0;
 
@@ -207,7 +205,7 @@ public class ProductTab extends JPanel{
         productionPrice = baseProductionPrice;
         income = 0;
         maxDemand = baseMaxDemand;
-        maxProduction = baseMaxProduction;
+        maxProduction = 10;
         productionSlider.setMaximum(maxProduction);
         productPriceSlider.setValue(productPrice);
         productionSlider.setValue(production);

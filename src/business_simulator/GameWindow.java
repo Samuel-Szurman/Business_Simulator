@@ -8,9 +8,9 @@ import javax.swing.*;
  * Okno całej gry
  */
 public class GameWindow extends JFrame{
-    /** Pieniądze gracz */
+    /** Pieniądze gracza */
     public int money = 1000;
-    /** Przychód gracz */
+    /** Przychód gracza */
     public int totalIncome = 0;
     /** Numer bieżącej tury */
     public int turn = 1;

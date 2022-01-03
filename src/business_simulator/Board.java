@@ -18,7 +18,7 @@ public class Board extends JPanel{
     private final MoneyStatus moneyStatus;
     /** Element pokazujący przychód gracza */
     private final IncomeStatus incomeStatus;
-    /** Element pokazujący numer gracz */
+    /** Element pokazujący numer gracza */
     private final TurnStatus turnStatus;
 
     /**

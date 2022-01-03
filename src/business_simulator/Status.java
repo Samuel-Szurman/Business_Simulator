@@ -46,6 +46,10 @@ public abstract class Status {
     /**
      * Metoda wpisuje napis wewnątrz elementu
      * @param g Obiekt klasy Graphics, na którym jest wpisywany napis
+     * @param x współrzędna x pola napisu
+     * @param y współrzędna y pola napisu
+     * @param width szerokość pola napisu
+     * @param height wysokość pola napisu
      */
     protected abstract void drawDescription(Graphics g, int x, int y, int width, int height);
 }
