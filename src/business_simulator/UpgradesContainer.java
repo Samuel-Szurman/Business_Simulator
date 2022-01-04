@@ -35,8 +35,6 @@ public class UpgradesContainer {
 
         this.logo = logo;
 
-        //int lvlHeight = optionHeight + margin;
-
         upgrades = new Upgrade[3];
         upgrades[0] = new MagazineUpgrade("Ulepsz magazyn", optionX, optionY, optionWidth, productTab, gameWindow);
         upgrades[1] = new ProductionPriceUpgrade("Zmniejsz koszt produkcji", optionX, optionY + 60, optionWidth, productTab, gameWindow);

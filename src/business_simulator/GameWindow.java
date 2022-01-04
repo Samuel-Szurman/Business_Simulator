@@ -21,6 +21,8 @@ public class GameWindow extends JFrame{
     private final ProductTab[] productTabs;
     /** Plansza, na której rysowane są ulepszenia oraz informacje o stanie gry */
     private final Board board;
+    /** Gif, który pokazuje się na koniec gry*/
+    private final ImageIcon icon;
 
     /**
      * Metoda wywoływana podczas restartu gry
@@ -41,7 +43,7 @@ public class GameWindow extends JFrame{
     private void showEndMessage(){
         String[] options = {"Od nowa", "Zakończ grę"};
         int choice = JOptionPane.showOptionDialog(this, "Koniec gry\nTwój wynik: " + money, "Koniec gry",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, options, options[0]);
         if(choice == -1 || choice == 1){
             this.dispose();
         }
@@ -62,6 +64,8 @@ public class GameWindow extends JFrame{
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
+        icon = new ImageIcon("resources/burger_cat.gif");
 
         String[] productNames = {"Burger", "Frytki", "Hot-Dog"};
         
