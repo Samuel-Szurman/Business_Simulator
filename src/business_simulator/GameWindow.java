@@ -86,7 +86,7 @@ public class GameWindow extends JFrame{
         add(board, BorderLayout.CENTER);
 
         JPanel southPanel = new JPanel();
-        southPanel.setLayout(new GridLayout());
+        southPanel.setLayout(new GridLayout(1, 1));
         add(southPanel, BorderLayout.SOUTH);
 
         JLabel titleLabel = new JLabel("Business Simulator");
