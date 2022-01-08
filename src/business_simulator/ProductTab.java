@@ -151,7 +151,7 @@ public class ProductTab extends JPanel{
      * Metoda obliczająca przychód
      */
     private void calculate(){
-        demand = maxDemand - productPrice;
+        demand = Math.max(maxDemand - productPrice, 0);
         int revenues = Math.min(demand, production) * productPrice;
         int expenses = production * productionPrice;
         income = revenues - expenses;
